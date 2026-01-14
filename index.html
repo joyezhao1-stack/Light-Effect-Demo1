@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金色光束散开动效</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .light-text {
+            position: relative;
+            font-size: 60px;
+            font-weight: bold;
+            color: #FFD700; /* 金色文字 */
+            font-family: "微软雅黑", sans-serif;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* 添加金色光晕 */
+        }
+        /* 光束核心样式 */
+        .light-text::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #FFD700, /* 金色主色调 */
+                #FFEC8B, /* 淡金色 */
+                #FFD700, 
+                transparent);
+            border-radius: 4px;
+            /* 动画改为单次播放，结束后保持最后一帧 */
+            animation: lightSpread 2.5s ease-in-out forwards;
+        }
+        /* 光束扩散动画：从中间向两侧展开后保持 */
+        @keyframes lightSpread {
+            0% {
+                width: 0;
+                opacity: 0;
+            }
+            60% {
+                width: 100%;
+                opacity: 1;
+                filter: blur(0px);
+            }
+            70% {
+                opacity: 0.8;
+                filter: blur(2px);
+            }
+            100% {
+                width: 100%;
+                opacity: 0.6;
+                filter: blur(4px); /* 最终散开效果 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="light-text">金色光束文字</div>
+</body>
+</html>
